@@ -1,9 +1,25 @@
 import React,{Component} from 'react';
-import {Container, Content, Card, CardItem, Text, Body, Button, Input, Item, Icon, Right, Left, Header, Toast} from 'native-base';
+import {Container, Content, Card, CardItem, Text, Body, Button, Input, Item, Icon, Right} from 'native-base';
 import {StyleSheet} from 'react-native';
+
+import api from '../data/api';
 
 class Registro extends Component{
 
+  constructor(props){
+    super(props);
+    this.state = {
+      email:'',
+      user:'',
+      pass:''
+    }
+  }
+
+ register = () => api.registerData(this.state.email, this.state.user, this.state.pass)
+
+
+
+  mensaje = ()=>{alert('Datos guardados')};
   render(){
       const navegar = this.props.navigation;
       return(
@@ -11,43 +27,72 @@ class Registro extends Component{
 
           <Content padder contentContainerStyle = {misEstilos.content}>
             <Card>
-              <CardItem header bordered>
 
-                <Text style = {misEstilos.textCenter}>
-                  {this.props.route.params.titulo}
-                  {this.props.route.params.nombre}
-                </Text>
-
-              </CardItem>
+            <CardItem header bordered>
+                    <Text style = {misEstilos.textCenter}>Registrar</Text>
+            </CardItem>
               <CardItem bordered>
                 <Body style = {misEstilos.body}>
+
+                  
                   <Item inlineLabel>
-                    <Icon type = 'FontAwesome' name = 'user'></Icon>
-                    <Input placeHolder = 'Nombre de Usuario'/>
+                        <Icon type = 'FontAwesome' name = 'user'></Icon>
+                        <Input
+                            placeholder = "Nombre de Usuario"
+                            //value={this.state.usuario}
+                            onChangeText={(user)=>this.setState({user})}
+                        />
                   </Item>
 
                   <Item inlineLabel last>
                     <Icon type = 'Entypo' name = 'email'></Icon>
-                    <Input placeHolder = 'Correo'/>
+                    <Input
+                      placeholder = 'Correo'
+                      //value={this.state.correo}
+                      onChangeText={(email)=>this.setState({email})}
+                    />
                   </Item>
 
                   <Item inlineLabel last>
-                    <Icon type = 'FontAwesome' name = 'lock'></Icon>
-                    <Input placeHolder = 'Contraseña'/>
+                      <Icon type = 'FontAwesome' name = 'lock'></Icon>
+                      <Input type="password"
+                          placeholder = 'Contraseña'
+                          //value={this.state.contrasena}
+                          onChangeText={(pass)=>this.setState({pass})}
+                          secureTextEntry={true}
+                      />
                   </Item>
                   
                 </Body>
               </CardItem>
-              <CardItem footer bordered>
-                
-                <Button rounded dark style = {misEstilos.boton} onPress={()=> Toast.show({
-                  text: 'Datos Guardados con exito',
-                  buttonText: 'Okay'
-                  })}>
-                    <Text>Guardar</Text>
+
+
+              <CardItem footer bordered>  
+                <Button rounded dark style = {misEstilos.boton}
+                  onPress={() => navegar.navigate('Login')}>
+                    <Text>Login</Text>
+                  </Button>
+
+                <Button rounded dark style = {misEstilos.boton} 
+                          onPress={this.register}>
+                  <Text>Guardar</Text>
                 </Button>
 
+                
               </CardItem>
+              
+
+              <CardItem footer bordered> 
+                <Button rounded dark style = {misEstilos.boton} 
+                    onPress ={() =>
+                        navegar.navigate('Bienvenida',{
+                            contrasena: this.state.contrasena,
+                            usuario: this.state.usuario
+                        })}>
+                    <Text>Entrar</Text>
+                </Button>
+              </CardItem>       
+
             </Card>
 
             <Card>
