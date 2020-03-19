@@ -4,6 +4,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Login from './screen/Login';
 import Registro from './screen/Registro';
 import Bienvenida from './screen/Bienvenida';
+import Principal from './screen/Principal';
+import Principal2 from './screen/Principal2'
 
 const Stack = createStackNavigator();
 
@@ -21,6 +23,14 @@ const App: () => React$Node = () => {
         <Stack.Screen
           name='Bienvenida'
           component={Bienvenida}/>
+        
+        <Stack.Screen
+          name='Principal'
+          component={Principal}/>
+
+        <Stack.Screen
+          name='Principal2'
+          component={Principal2}/>
           
       </Stack.Navigator>
       
